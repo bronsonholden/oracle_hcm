@@ -5,10 +5,14 @@ module OracleHcm
     def initialize(data, client)
       @data = data
       @client = client
+      @cache = {}
     end
 
     # Sugar syntax for defining methods that return data at given keys in
-    # the resource JSON.
+    # the resource JSON. Properties are not a 1:1 match with data in the
+    # object JSON. They can be wrappers for sending requests to related
+    # resources such as names or addresses, although those are better defined
+    # as cached properties.
     def self.property(name, key: nil, &block)
       define_method(name) {
         if block_given?
@@ -16,6 +20,20 @@ module OracleHcm
         else
           data.fetch(key)
         end
+      }
+    end
+
+    # Sugar syntax for defining properties that are cached to avoid making
+    # multiple requests for data that is not expected to change during
+    # execution, such as employee names or SSNs. Also defines a bang method
+    # that will skip and overwrite the cache.
+    def self.cached_property(name, &block)
+      bang = :"#{name.to_s}!"
+      define_method(bang) {
+        instance_variable_get(:@cache)[name] = instance_eval(&block)
+      }
+      define_method(name) {
+        @cache[name] || self.send(bang)
       }
     end
 
