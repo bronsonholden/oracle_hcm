@@ -10,3 +10,5 @@
 .rspec_status
 
 Gemfile.lock
+
+/bin/test
