@@ -8,6 +8,7 @@ module OracleHcm
     child_resource :names, resource: Name
     child_resource :national_identifiers, resource: NationalIdentifier
     property :person_id, key: "PersonId"
+    property :person_number, key: "PersonNumber"
     cached_property :first_name do names.items.first.first_name; end
     cached_property :last_name do names.items.first.last_name; end
 
