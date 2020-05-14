@@ -42,28 +42,12 @@ module OracleHcm
 
     # Retrieve a single worker resource by PersonId
     def worker(id:)
-      res = connection.get do |req|
-        req.url "workers"
-        req.params["q"] = "PersonId=#{id}"
-      end
-      if res.success?
-        items = JSON.parse(res.body).fetch("items")
-        return Worker.new(items.first, self) if items.any?
-      end
-      nil
+      workers(q: "PersonId=#{id}").items.first
     end
 
     # Retrieve a single document record resource by DocumentsOfRecordId
     def document_record(id:)
-      res = connection.get do |req|
-        req.url "documentRecords"
-        req.params["q"] = "DocumentsOfRecordId=#{id}"
-      end
-      if res.success?
-        items = JSON.parse(res.body).fetch("items")
-        return DocumentRecord.new(items.first, self) if items.any?
-      end
-      nil
+      document_records(q: "DocumentsOfRecordId=#{id}").items.first
     end
 
     # Get an authenticated Faraday connection using given credentials.
