@@ -50,10 +50,13 @@ module OracleHcm
       document_records(q: "DocumentsOfRecordId=#{id}").items.first
     end
 
+    def base_url
+      "#{endpoint}/hcmRestApi/resources/11.13.18.05"
+    end
+
     # Get an authenticated Faraday connection using given credentials.
     def connection
-      url = "#{endpoint}/hcmRestApi/resources/11.13.18.05"
-      Faraday.new(url: url) do |conn|
+      Faraday.new(url: base_url) do |conn|
         conn.basic_auth(username, password)
       end
     end

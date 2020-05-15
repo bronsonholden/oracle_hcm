@@ -2,9 +2,9 @@ require "oracle_hcm/resource"
 
 module OracleHcm
   class ResourceList < Resource
-    attr_reader :limit, :offset, :method, :resource
+    attr_reader :limit, :offset, :method, :resource, :client, :parent
 
-    def initialize(data, offset, limit, method, resource, client)
+    def initialize(data, offset, limit, method, resource, client, parent = nil)
       super(data, client)
       @limit = limit
       @offset = offset
@@ -18,7 +18,7 @@ module OracleHcm
 
     def items
       @data.fetch("items").map { |item|
-        resource.new(item, client)
+        resource.new(item, client, parent)
       }
     end
   end

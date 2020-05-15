@@ -1,10 +1,11 @@
 module OracleHcm
   class Resource
-    attr_reader :data, :client
+    attr_reader :data, :client, :parent
 
-    def initialize(data, client)
+    def initialize(data, client, parent = nil)
       @data = data
       @client = client
+      @parent = parent
       @cache = {}
     end
 
@@ -54,7 +55,7 @@ module OracleHcm
           end
         end
         if res.success?
-          ResourceList.new(JSON.parse(res.body), offset, limit, method, resource, self)
+          ResourceList.new(JSON.parse(res.body), offset, limit, method, resource, client, self)
         else
           nil
         end
@@ -78,13 +79,17 @@ module OracleHcm
     end
 
     # Although resources have unique identifiers, the API does not use these
-    # in the URL to retrieve a resource. Instead, a longer identifier string
-    # is used. This identifier is only displayed as part of the self link
-    # for the resource.
+    # in the URL to retrieve some resources. Instead, a longer identifier
+    # string is used. This identifier is only displayed as part of the self
+    # link for the resource.
     def canonical_id
       # Extract resource identifier from self link
       m = link.fetch("href").match(/\/([0-9A-F]+)\z/)
       m[1]
+    end
+
+    def uri(rel: "self")
+      link(rel: rel).fetch("href").gsub(client.base_url, "")
     end
   end
 end
