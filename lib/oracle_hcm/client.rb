@@ -38,6 +38,7 @@ module OracleHcm
 
     # Retrieve worker resources.
     resource :workers, resource: Worker
+    # Retrieve document record resources.
     resource :document_records, resource: DocumentRecord
 
     # Retrieve a single worker resource by PersonId

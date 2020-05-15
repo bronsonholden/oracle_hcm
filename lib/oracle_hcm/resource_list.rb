@@ -1,6 +1,8 @@
 require "oracle_hcm/resource"
 
 module OracleHcm
+  # A ResourceList is a helper object that makes it easy to poll through
+  # paginated resources.
   class ResourceList < Resource
     attr_reader :limit, :offset, :method, :resource, :client, :parent
 

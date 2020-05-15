@@ -1,4 +1,6 @@
 module OracleHcm
+  # Base class for all resources in Oracle HCM. Provides some sugar syntax
+  # and shared methods.
   class Resource
     attr_reader :data, :client, :parent
 

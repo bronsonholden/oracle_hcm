@@ -4,6 +4,7 @@ require "oracle_hcm/national_identifier"
 require "oracle_hcm/document_record"
 
 module OracleHcm
+  # A Worker is a resources that represents an employee within the system.
   class Worker < Resource
     child_resource :names, resource: Name
     child_resource :national_identifiers, resource: NationalIdentifier
