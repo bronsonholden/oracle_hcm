@@ -4,9 +4,9 @@ module OracleHcm
   # An Attachment is a child resource of a Document Record (or Document of
   # Record), and stores upload file data and metadata.
   class Attachment < Resource
-    property :attachment_document_id, key: "AttachmentDocumentId"
-    property :content_type, key: "UploadFileContentType"
-    property :content_size, key: "UploadFileContentLength"
+    property :attachment_document_id, key: "AttachedDocumentId"
+    property :content_type, key: "UploadedFileContentType"
+    property :content_size, key: "UploadedFileContentLength"
     property :title, key: "Title"
 
     # Download the file via a readable IO object.
