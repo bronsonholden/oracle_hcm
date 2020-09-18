@@ -1,4 +1,5 @@
 require "oracle_hcm/resource"
+require "oracle_hcm/assignment"
 
 module OracleHcm
   # A WorkRelationship is a child resource of a Worker that stores data
@@ -9,5 +10,7 @@ module OracleHcm
     property :start_date, key: "StartDate"
     property :termination_date, key: "TerminationDate"
     property :recommended_for_rehire, key: "RecommendedForRehire"
+
+    child_resource :assignments, resource: Assignment
   end
 end
