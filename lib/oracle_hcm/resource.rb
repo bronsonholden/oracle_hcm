@@ -40,11 +40,24 @@ module OracleHcm
       }
     end
 
+    def resource_url
+      parts = [
+        resource_name,
+        canonical_id
+      ]
+
+      if !parent.nil?
+        parts = [parent.resource_url, 'child'].concat(parts)
+      end
+
+      parts.reject(&:nil?).join("/")
+    end
+
     # Sugar syntax for defining child resource retrieval methods
     def self.child_resource(method, resource:)
       define_method(method) do |offset: 0, limit: 20, q: []|
         # Generate the URL for the request
-        url = "#{resource_name}/#{canonical_id}/child/#{resource.resource_name}"
+        url = "#{resource_url}/child/#{resource.resource_name}"
         if !q.is_a?(Array)
           q = [q]
         end
