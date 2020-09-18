@@ -12,6 +12,7 @@ module OracleHcm
       @offset = offset
       @method = method
       @resource = resource
+      @parent = parent
     end
 
     def next
