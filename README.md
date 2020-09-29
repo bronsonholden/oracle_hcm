@@ -1,5 +1,7 @@
 # Oracle HCM SDK
 
+[![Gem Version](https://badge.fury.io/rb/oracle_hcm.svg)](https://badge.fury.io/rb/oracle_hcm) [![Inline docs](http://inch-ci.org/github/paulholden2/oracle_hcm.svg?branch=master)](http://inch-ci.org/github/paulholden2/oracle_hcm)
+
 This gem is a library for interacting with the Oracle HCM REST API.
 
 ## Installation
